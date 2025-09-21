@@ -1,14 +1,21 @@
-import "./App.css";
-
+import AppName from "./components/AppName";
+import TodoItems2 from "./components/TodoItems2";
+import TodoItems1 from "./components/TodoItems1";
+import AddTodo from "./components/AddTodo";
+import "./assets/style/App.css";
 function App() {
   return (
     <>
-      <button type="button" className="btn btn-primary">
-        Click Me
-      </button>
-      <button type="button" className="btn btn-secondary">
-        Hello sir{" "}
-      </button>
+      <center>
+        <div className="todo_container">
+          <AppName />
+          <AddTodo />
+          <div className="items_container">
+            <TodoItems1 />
+            <TodoItems2 />
+          </div>
+        </div>
+      </center>
     </>
   );
 }
