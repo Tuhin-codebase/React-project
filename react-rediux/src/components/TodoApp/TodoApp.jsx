@@ -1,41 +1,30 @@
 import ShowTodo from "./ShowTodo";
-import { useState } from "react";
-const AddTodo = ({ newTodo }) => {
-  const [inputValue, setInputValue] = useState();
-  const [inputDate, setInputDate] = useState();
-  const changeTodoName = (event) => {
-    setInputValue(event.target.value);
-  };
+import { useRef } from "react";
+import { IoBagAddSharp } from "react-icons/io5";
+import { Todo_items } from "../../store/Todo-items-store";
+import { useContext } from "react";
+const AddTodo = () => {
+  const { addTodoItems } = useContext(Todo_items);
 
-  const changeINputDate = (event) => {
-    setInputDate(event.target.value);
-  };
+  const onNameValueRef = useRef();
+  const onDateValueRef = useRef();
 
   const addTodoFunction = () => {
-    newTodo(inputValue, inputDate);
-    setInputValue("");
-    setInputDate("");
+    const inputValue = onNameValueRef.current.value;
+    const inputDate = onDateValueRef.current.value;
+    onNameValueRef.current.value = "";
+    onDateValueRef.current.value = "";
+    addTodoItems(inputValue, inputDate);
   };
 
   return (
     <div className="container">
       <div className="row kg_row ">
         <div className="col-6">
-          <input
-            type="text"
-            onChange={changeTodoName}
-            placeholder="Enter Todo ? "
-            value={inputValue}
-          />
+          <input ref={onNameValueRef} type="text" placeholder="Enter Todo ? " />
         </div>
         <div className="col-4">
-          <input
-            value={inputDate}
-            onChange={changeINputDate}
-            type="date"
-            name="date"
-            id="date"
-          />
+          <input ref={onDateValueRef} type="date" name="date" id="date" />
         </div>
         <div className="col-2">
           <button
@@ -43,11 +32,11 @@ const AddTodo = ({ newTodo }) => {
             onClick={addTodoFunction}
             className="btn btn-success "
           >
-            add
+            <IoBagAddSharp />
           </button>
         </div>
       </div>
-      {/* <ShowTodo /> */}
+      <ShowTodo />
     </div>
   );
 };

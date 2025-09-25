@@ -1,19 +1,25 @@
-const ShowTodo = ({ todoArray, deleteTodoFunction }) => {
-  return (
+import { useContext } from "react";
+import { Todo_items } from "../../store/Todo-items-store";
+import { MdDeleteForever } from "react-icons/md";
+import WelcomeMessage from "./Welcome";
+const ShowTodo = () => {
+  const { todoState, deleteItems } = useContext(Todo_items);
+
+  return todoState.length > 0 ? (
     <div className="container">
       <div className="row kg_row">
-        {todoArray.map(({ todoValue, date }) => {
+        {todoState.map((todo) => {
           return (
-            <div className="d-flex justify-content-between" key={date}>
-              <div>{todoValue}</div>
-              <div>{date}</div>
+            <div className="d-flex justify-content-between" key={todo.date}>
+              <div>{todo.TodoName}</div>
+              <div>{todo.date}</div>
               <div className=" button">
                 <button
                   type="button"
-                  onClick={() => deleteTodoFunction(todoValue)}
+                  onClick={() => deleteItems(todoState.dueDate)}
                   className="btn btn-danger"
                 >
-                  Delete
+                  <MdDeleteForever />
                 </button>
               </div>
             </div>
@@ -21,6 +27,8 @@ const ShowTodo = ({ todoArray, deleteTodoFunction }) => {
         })}
       </div>
     </div>
+  ) : (
+    <WelcomeMessage />
   );
 };
 
